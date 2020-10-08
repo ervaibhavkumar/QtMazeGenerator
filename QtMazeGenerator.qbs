@@ -22,8 +22,6 @@ QtApplication {
     files: [
         "cell.cpp",
         "cell.h",
-        "line.cpp",
-        "line.h",
         "main.cpp",
         "maze.cpp",
         "maze.h",

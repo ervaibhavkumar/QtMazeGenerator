@@ -1,69 +1,33 @@
-#ifndef CELL_H
-#define CELL_H
+#pragma once
 
-#include <QPainter>
-#include <QGraphicsWidget>
+#include <QGraphicsLineItem>
+#include <QGraphicsScene>
+#include <QGraphicsTextItem>
+#include <QGraphicsRectItem>
 
-#include <vector>
-#include <memory>
-#include "line.h"
 
-class Cell : public QGraphicsWidget
+class Cell
 {
-public:
-    Cell(int row, int col, int size, QColor color, QGraphicsWidget *parent = nullptr);
-    Cell(const Cell &other);
-
-    bool getVisited() const { return visited; }
-    void setVisited(bool state);
-
-    int getRowIndex() const { return rowIndex; }
-    void setRowIndex(int index);
-
-    int getColIndex() const { return colIndex; }
-    void setColIndex(int index);
-
-    QMap<QString, bool> getWalls() const { return walls; }
-    void setWalls(QMap<QString, bool> map);
-
-    int getCellSize() const { return cellSize; }
-    void setCellSize(int size);
-
-    QColor getBackGroundColor() const { return backgroundColor; }
-    void setBackgroundColor(QColor color);
-
-    bool getValueForTheKey(QString str);
-    void getLineAtIndex(int index, QGraphicsScene *scene);
-
-    Line* getTopWall() const { return top; }
-    void setTopWall(Line *wall);
-
-    Line* getBottomWall() const { return bottom; }
-    void setBottomWall(Line *wall);
-
-    Line* getLeftWall() const { return left; }
-    void setLeftWall(Line *wall);
-
-    Line* getRightWall() const { return right; }
-    void setRightWall(Line *wall);
-
-    void Highlight();
-
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
-
 private:
-    void CreateWalls();
-
-    int rowIndex;
-    int colIndex;
-    QMap<QString, bool> walls;
-    QColor backgroundColor;
-    bool visited = false;
+    bool visited;
+    int idx;
+    int idy;
+    QColor cellColor;
+    QColor wallColor;
+public:
     int cellSize;
-    Line *bottom = nullptr;
-    Line *top = nullptr;
-    Line *left = nullptr;
-    Line *right = nullptr;
-};
+    QGraphicsLineItem *top; //up
+    QGraphicsLineItem *right; //right
+    QGraphicsLineItem *bottom; //down
+    QGraphicsLineItem *left; //left
+    QGraphicsRectItem *rect;
 
-#endif // CELL_H
+
+    Cell(int x, int y, int size, QColor color, QColor wall, QGraphicsScene *s);
+    bool isVisited() const;
+    void setVisited(bool state);
+    int getRowIndex() const { return idx; }
+    int getColIndex() const { return idy; }
+    void Show();
+    void Hide();
+};

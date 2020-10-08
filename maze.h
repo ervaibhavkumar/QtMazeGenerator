@@ -1,28 +1,45 @@
-#ifndef MAZE_H
-#define MAZE_H
+#pragma once
+
+#include <QObject>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QStack>
+#include <QThread>
+#include <QTimer>
+#include <QTime>
 
 #include "cell.h"
-#include <vector>
-#include <QGraphicsView>
+
 
 class Maze : public QGraphicsView
 {
+    Q_OBJECT
+public slots:
+    void generate();
+
 public:
-    Maze(QSize sizeOfScreen, QGraphicsView *parent = nullptr);
-    void CreateMaze();
+    Maze(QSize size);
+    Cell * getFreeNeighbour(Cell * curr);
+    void removeWalls(Cell * c, Cell *n);
+    int getIndex(int i, int j);
 
-private:
-    QColor getBackGroundColor();
-    int getCellBackground(int hue, int hueShift);
-
-    QSize screenSize;
-    std::vector<Cell> *grid = new std::vector<Cell>();
-    Cell *current;
-    QStack<Cell> *stack = nullptr;
-
+    QSize sizeOfScreen;
+    int speed = 20;
+    int cellSize = 35;
     int numRows;
     int numCols;
-    int cellSize = 35;
-};
+    std::vector<std::unique_ptr<Cell*>> grid;
+    QStack<Cell *> history;
+    Cell* current_cell = nullptr;
+    Cell* next = nullptr;
+    QTimer *timer;
 
-#endif // MAZE_H
+private:
+    void CreateBackGroundColor();
+    void CreateCellColorFromBg();
+    void CreateWallColor();
+
+    QColor bgColor;
+    QColor cellColor;
+    QColor wallColor;
+};

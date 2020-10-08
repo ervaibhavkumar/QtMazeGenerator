@@ -9,8 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Maze *game = new Maze(QSize(1080, 1920));
-    game->showMaximized();
-    game->CreateMaze();
+    Maze *game = new Maze(QSize(800,800));
+    game->show();
     return a.exec();
 }
