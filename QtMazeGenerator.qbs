@@ -1,7 +1,7 @@
 import qbs
 
 QtApplication {
-    cpp.cxxLanguageVersion: "c++11"
+    cpp.cxxLanguageVersion: "c++14"
 
     cpp.defines: [
         // The following define makes your compiler emit warnings if you use

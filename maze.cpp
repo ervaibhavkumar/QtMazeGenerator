@@ -2,6 +2,8 @@
 #include "utilities.h"
 
 #include <QDebug>
+#include <QtCore/qmath.h>
+#include <memory>
 
 Maze::Maze(QSize size)
     : QGraphicsView(),
@@ -20,8 +22,8 @@ Maze::Maze(QSize size)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(sizeOfScreen.height(), sizeOfScreen.width());
 
-    numRows = floor(sizeOfScreen.width() / cellSize);
-    numCols = floor(sizeOfScreen.height() / cellSize);
+    numRows = qFloor(sizeOfScreen.width() / cellSize);
+    numCols = qFloor(sizeOfScreen.height() / cellSize);
 
     //setup grid and prepare first cell
     for(int i = 0; i < numRows; i++)
